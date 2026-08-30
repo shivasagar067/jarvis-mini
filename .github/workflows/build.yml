@@ -18,10 +18,10 @@ jobs:
         run: |
           unzip -o JarvisMiniProject.zip -d jarvis
 
-      - name: Use compatible Android Gradle Plugin
+      - name: Configure Android project
         run: |
           sed -i 's/id("com.android.application") version "9.3.0"/id("com.android.application") version "9.2.0"/' jarvis/build.gradle.kts
-
+          sed -i '/id("org.jetbrains.kotlin.android")/d' jarvis/app/build.gradle.kts
       - name: Set up Java 17
         uses: actions/setup-java@v4
         with:

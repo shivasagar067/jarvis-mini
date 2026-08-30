@@ -16,7 +16,7 @@ jobs:
 
       - name: Extract Jarvis project
         run: |
-          unzip -o JarvisMiniProject.zip -d jarvis
+          unzip -o JarvisMini-v1.1.zip -d jarvis
 
       - name: Configure Android project
         run: |

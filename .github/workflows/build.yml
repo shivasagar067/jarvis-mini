@@ -20,9 +20,41 @@ jobs:
 
       - name: Configure Android project
         run: |
-          sed -i 's/id("com.android.application") version "9.3.0"/id("com.android.application") version "9.2.0"/' jarvis/build.gradle.kts
-          sed -i '/id("org.jetbrains.kotlin.android")/d' jarvis/app/build.gradle.kts
-          sed -i '/kotlinOptions {/,/}/d' jarvis/app/build.gradle.kts
+          cat > jarvis/build.gradle.kts <<'EOF'
+          plugins {
+              id("com.android.application") version "9.2.0" apply false
+          }
+          EOF
+
+          cat > jarvis/app/build.gradle.kts <<'EOF'
+          plugins {
+              id("com.android.application")
+          }
+
+          android {
+              namespace = "com.example.jarvis"
+              compileSdk = 36
+
+              defaultConfig {
+                  applicationId = "com.example.jarvis"
+                  minSdk = 26
+                  targetSdk = 36
+                  versionCode = 1
+                  versionName = "1.0"
+              }
+
+              buildTypes {
+                  release {
+                      isMinifyEnabled = false
+                  }
+              }
+
+              compileOptions {
+                  sourceCompatibility = JavaVersion.VERSION_17
+                  targetCompatibility = JavaVersion.VERSION_17
+              }
+          }
+          EOF
           
       - name: Set up Java 17
         uses: actions/setup-java@v4

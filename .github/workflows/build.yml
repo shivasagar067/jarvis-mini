@@ -18,6 +18,10 @@ jobs:
         run: |
           unzip -o JarvisMiniProject.zip -d jarvis
 
+      - name: Use compatible Android Gradle Plugin
+        run: |
+          sed -i 's/id("com.android.application") version "9.3.0"/id("com.android.application") version "9.2.0"/' jarvis/build.gradle.kts
+
       - name: Set up Java 17
         uses: actions/setup-java@v4
         with:
@@ -34,7 +38,7 @@ jobs:
       - name: Set up Gradle
         uses: gradle/actions/setup-gradle@v6
         with:
-          gradle-version: '9.5'
+          gradle-version: '9.4.1'
 
       - name: Build APK
         working-directory: jarvis
